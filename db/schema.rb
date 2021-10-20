@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_20_184607) do
+ActiveRecord::Schema.define(version: 2021_10_20_194250) do
 
   create_table "restaurant_news", force: :cascade do |t|
     t.string "name"
@@ -29,6 +29,15 @@ ActiveRecord::Schema.define(version: 2021_10_20_184607) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "review_news", force: :cascade do |t|
+    t.integer "rating"
+    t.string "content"
+    t.integer "restaurant_new_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["restaurant_new_id"], name: "index_review_news_on_restaurant_new_id"
+  end
+
   create_table "reviews", force: :cascade do |t|
     t.integer "rating"
     t.text "content"
@@ -38,5 +47,6 @@ ActiveRecord::Schema.define(version: 2021_10_20_184607) do
     t.index ["restaurant_id"], name: "index_reviews_on_restaurant_id"
   end
 
+  add_foreign_key "review_news", "restaurant_news", column: "restaurant_new_id"
   add_foreign_key "reviews", "restaurants"
 end

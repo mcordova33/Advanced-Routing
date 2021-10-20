@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
-  resources :restaurant_news
+  # resources :restaurant_news
+  # resources :restaurants
+  resources :restaurants do
+    resources :reviews, only: [ :new, :create ]
+  end
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
